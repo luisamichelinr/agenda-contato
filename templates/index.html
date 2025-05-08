@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <title>Agenda de Contatos</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="container">
+            <h1> Agenda de Contatos</h1>
+
+            {% with mensagens = get_flashed_messages() %}
+                {% if mensagens %}
+                    <ul class="mensagens">
+                      {% for msg in mensagens %}
+                        <li>{{ msg }}</li>
+                      {% endfor %}
+                    </ul>
+              {% endif %}
+            {% endwith %}
+
+            <a class="botao" href="/adicionar_contato">+ Adicionar Contato</a>
+
+            <table>
+                <tr>
+                    <th>Nome</th>
+                    <th>Telefone</th>
+                    <th>Email</th>
+                    <th>Ações</th>
+                </tr>
+                {% for contato in contatos %}
+                <tr>
+                    <td>{{ contato[1] }}</td>
+                    <td>{{ contato[2] }}</td>
+                    <td>{{ contato[3] }}</td>
+                    <td>
+                        <a class="botao pequeno" href="/editar_contato/{{ contato[0] }}">Editar</a>
+                        <a class="botao vermelho pequeno" href="/apagar_contato/{{ contato[0] }}">Apagar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </body>
+</html>
